@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Card, Input, Button, Menu, Icon } from "semantic-ui-react";
+import { Card, Input, Button, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import Film from "./Film";
-import times from "lodash.times";
-import "../App.css";
+import "../App.scss";
 import poster from "../images/poster.png";
 import axios from "axios";
 
 const FilmsListe = () => {
   const [films, setFilms] = useState([]);
-  const [filmRecherche, setFilmRecherche] = useState("Anne");
+  const [filmRecherche, setFilmRecherche] = useState("Lydia");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -71,11 +69,50 @@ const FilmsListe = () => {
         )}
       </Menu> */}
       <Card.Group id="film-container">
-        {films./*slice(startIndex, startIndex + TOTAL_PAR_PAGE).*/ map(
-          (film, i) => {
-            return (
-              <>
-                <Film
+        {films.map((film, i) => {
+          return (
+            <>
+              <Card key={i} className="film-card" style={{ maxWidth: "200px" }}>
+                <Image
+                  src={
+                    film.poster_path
+                      ? `https://image.tmdb.org/t/p/original${film.poster_path}`
+                      : poster
+                  }
+                />
+                <Card.Content>
+                  <Card.Header>{film.title}</Card.Header>
+                  {/* <Card.Meta>
+                      <span className="date">{film.release_date}</span>
+                    </Card.Meta> 
+                    <Card.Description>
+                      {film.overview.slice(0, 15).concat("...")}
+                    </Card.Description>*/}
+                </Card.Content>
+                <Card.Content extra style={{ backgroundColor: "orangered" }}>
+                  <Link
+                    to="/details"
+                    style={{ color: "white", fontWeight: "bold" }}
+                    onClick={() => {
+                      localStorage.setItem(
+                        "filmDetails",
+                        JSON.stringify({
+                          id: film.id,
+                          titre: film.title,
+                          dateSortie: film.release_date,
+                          description: film.overview,
+                          poster: film.poster_path,
+                          vote: film.vote_count,
+                          genre: film.genre_ids[0],
+                        })
+                      );
+                    }}
+                  >
+                    Plus de détails
+                  </Link>
+                </Card.Content>
+              </Card>
+              {/* <Film
                   key={i}
                   titre={film.title}
                   poster={
@@ -86,11 +123,10 @@ const FilmsListe = () => {
                   description={film.overview.slice(0, 15).concat("...")}
                   dateSortie={film.release_date}
                   onClick={handDetailsButton}
-                />
-              </>
-            );
-          }
-        )}
+                /> */}
+            </>
+          );
+        })}
       </Card.Group>
     </div>
   );

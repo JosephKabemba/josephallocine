@@ -1,0 +1,59 @@
+.App {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  text-align: center;
+  background-color: rgba(2, 54, 75, 0.9);
+  /*  background-image: url("./images/justiceleague.jpg");
+  background-position: center;
+  background-size: cover;
+*/
+  color: black;
+}
+
+#film-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 0% 5%;
+  margin-top: 5%;
+}
+
+h1 {
+  color: white;
+}
+
+#detailFilm {
+  display: flex;
+  justify-content: flex-start;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: overlay;
+  background-color: rgba(2, 54, 75, 0.9);
+  color: white;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  #poster {
+    max-height: 400px;
+    border: 2px solid white;
+  }
+
+  .details {
+    margin-top: 0%;
+    margin-left: 3%;
+    max-width: 300px;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: flex-start;
+    // align-items: flex-start;
+  }
+
+  #btnRetour {
+    background-color: rgb(60, 60, 179);
+    color: white;
+    width: 100%;
+  }
+}
