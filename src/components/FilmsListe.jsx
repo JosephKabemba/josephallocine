@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Film from "./Film";
 import times from "lodash.times";
 import "../App.css";
+import poster from "../images/poster.png";
 import axios from "axios";
 
 const FilmsListe = () => {
@@ -46,24 +47,8 @@ const FilmsListe = () => {
         onChange={(e) => setFilmRecherche(e.target.value)}
       />
       <Button content="Rechercher" />
-      <h2>{filmRecherche}</h2>
-      <Card.Group id="film-container">
-        {films.slice(startIndex, startIndex + TOTAL_PAR_PAGE).map((film, i) => {
-          return (
-            <>
-              <Film
-                key={i}
-                titre={film.title}
-                poster={`https://image.tmdb.org/t/p/original${film.poster_path}`}
-                description={film.overview.slice(0, 15).concat("...")}
-                dateSortie={film.release_date}
-                onClick={handDetailsButton}
-              />
-            </>
-          );
-        })}
-      </Card.Group>
-      <Menu floated="right" pagination>
+      {/* <h2>{filmRecherche}</h2> */}
+      {/* <Menu pagination>
         {page !== 0 && (
           <Menu.Item as="a" icon onClick={() => setPage(--mapage)}>
             <Icon name="left chevron" />
@@ -84,7 +69,29 @@ const FilmsListe = () => {
             <Icon name="right chevron" />
           </Menu.Item>
         )}
-      </Menu>
+      </Menu> */}
+      <Card.Group id="film-container">
+        {films./*slice(startIndex, startIndex + TOTAL_PAR_PAGE).*/ map(
+          (film, i) => {
+            return (
+              <>
+                <Film
+                  key={i}
+                  titre={film.title}
+                  poster={
+                    film.poster_path
+                      ? `https://image.tmdb.org/t/p/original${film.poster_path}`
+                      : poster
+                  }
+                  description={film.overview.slice(0, 15).concat("...")}
+                  dateSortie={film.release_date}
+                  onClick={handDetailsButton}
+                />
+              </>
+            );
+          }
+        )}
+      </Card.Group>
     </div>
   );
 };
