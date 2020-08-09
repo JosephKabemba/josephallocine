@@ -4,11 +4,9 @@
   width: 100vw;
   min-height: 100vh;
   text-align: center;
+  background-blend-mode: overlay;
   background-color: rgba(2, 54, 75, 0.9);
-  /*  background-image: url("./images/justiceleague.jpg");
-  background-position: center;
-  background-size: cover;
-*/
+  background-image: url("./images/justiceleague.jpg");
   color: black;
 }
 

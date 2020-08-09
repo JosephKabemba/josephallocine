@@ -3,73 +3,52 @@ import { Card, Input, Button, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "../App.scss";
 import poster from "../images/poster.png";
+import Entete from "./Entete";
+import Genres from "./FilmGenres";
 import axios from "axios";
 
 const FilmsListe = () => {
-  const [films, setFilms] = useState([]);
-  const [filmRecherche, setFilmRecherche] = useState("Lydia");
-  const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [donnees, setDonnees] = useState([]);
+  const [filmRecherche, setFilmRecherche] = useState("Avengers");
+  const [genres, setGenres] = useState([]);
 
   const TOTAL_PAR_PAGE = 10;
-  const handDetailsButton = (film) => {
-    sessionStorage.setItem(
-      "filmDetail",
-      JSON.stringify({
-        id: film.id,
-        titre: film.title,
-      })
-    );
-  };
 
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=963b7435377e0921bfa89573f3501e4a&query=${filmRecherche}`
+        `https://api.themoviedb.org/3/discover/movie?api_key=963b7435377e0921bfa89573f3501e4a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
       )
+      // axios
+      //   .get(
+      //     `https://api.themoviedb.org/3/search/movie?api_key=963b7435377e0921bfa89573f3501e4a&query=${filmRecherche}`
+      //   )
       .then((res) => {
-        setFilms(res.data.results);
-        setTotalPages(Math.ceil(res.data.length / TOTAL_PAR_PAGE));
+        setDonnees(res.data.results);
       })
       .catch((err) => console.log(err));
+
+    axios
+      .get(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=963b7435377e0921bfa89573f3501e4a`
+      )
+      .then((res) => setGenres(res.data.genres));
   }, [filmRecherche]);
 
-  const startIndex = page * TOTAL_PAR_PAGE;
-
-  let mapage = page;
   return (
     <div className="App">
+      <Entete />
       <h1>Allocine Clone</h1>
       <Input
         placeholder="Rechercher un film"
         onChange={(e) => setFilmRecherche(e.target.value)}
+        style={{ width: "500px", marginRight: "3%" }}
       />
       <Button content="Rechercher" />
-      {/* <h2>{filmRecherche}</h2> */}
-      {/* <Menu pagination>
-        {page !== 0 && (
-          <Menu.Item as="a" icon onClick={() => setPage(--mapage)}>
-            <Icon name="left chevron" />
-          </Menu.Item>
-        )}
-        {times(totalPages, (n) => (
-          <Menu.Item
-            as="a"
-            key={n}
-            active={n === page}
-            onClick={() => setPage(n)}
-          >
-            {n + 1}
-          </Menu.Item>
-        ))}
-        {page !== totalPages - 1 && (
-          <Menu.Item as="a" icon onClick={() => setPage(++mapage)}>
-            <Icon name="right chevron" />
-          </Menu.Item>
-        )}
-      </Menu> */}
+      {/* <Genres /> */}
+
       <Card.Group id="film-container">
-        {films.map((film, i) => {
+        {donnees.map((film, i) => {
           return (
             <>
               <Card key={i} className="film-card" style={{ maxWidth: "200px" }}>
@@ -82,12 +61,6 @@ const FilmsListe = () => {
                 />
                 <Card.Content>
                   <Card.Header>{film.title}</Card.Header>
-                  {/* <Card.Meta>
-                      <span className="date">{film.release_date}</span>
-                    </Card.Meta> 
-                    <Card.Description>
-                      {film.overview.slice(0, 15).concat("...")}
-                    </Card.Description>*/}
                 </Card.Content>
                 <Card.Content extra style={{ backgroundColor: "orangered" }}>
                   <Link

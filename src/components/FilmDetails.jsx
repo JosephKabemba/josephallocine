@@ -38,7 +38,6 @@ const FilmDetails = () => {
         <p>
           <Button
             color="red"
-            // content="Like"
             icon="heart"
             label={{
               basic: true,
