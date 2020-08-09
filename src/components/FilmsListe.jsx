@@ -8,7 +8,7 @@ import Genres from "./FilmGenres";
 import axios from "axios";
 
 const FilmsListe = () => {
-  const [donnees, setDonnees] = useState([]);
+  const [films, setFilms] = useState([]);
   const [filmRecherche, setFilmRecherche] = useState("Avengers");
   const [genres, setGenres] = useState([]);
 
@@ -24,7 +24,7 @@ const FilmsListe = () => {
       //     `https://api.themoviedb.org/3/search/movie?api_key=963b7435377e0921bfa89573f3501e4a&query=${filmRecherche}`
       //   )
       .then((res) => {
-        setDonnees(res.data.results);
+        setFilms(res.data.results);
       })
       .catch((err) => console.log(err));
 
@@ -48,7 +48,7 @@ const FilmsListe = () => {
       {/* <Genres /> */}
 
       <Card.Group id="film-container">
-        {donnees.map((film, i) => {
+        {films.map((film, i) => {
           return (
             <>
               <Card key={i} className="film-card" style={{ maxWidth: "200px" }}>
@@ -85,18 +85,7 @@ const FilmsListe = () => {
                   </Link>
                 </Card.Content>
               </Card>
-              {/* <Film
-                  key={i}
-                  titre={film.title}
-                  poster={
-                    film.poster_path
-                      ? `https://image.tmdb.org/t/p/original${film.poster_path}`
-                      : poster
-                  }
-                  description={film.overview.slice(0, 15).concat("...")}
-                  dateSortie={film.release_date}
-                  onClick={handDetailsButton}
-                /> */}
+       
             </>
           );
         })}
