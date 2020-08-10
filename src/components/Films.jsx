@@ -14,48 +14,46 @@ const Films = ({ films, enChargement }) => {
   return (
     <div>
       <Card.Group id="film-container">
-        {films
-          .map((film, i) => {
-            return (
-              <>
-                <Card key={i} className="film-card">
-                  <Image
-                    src={
-                      film.poster_path
-                        ? `https://image.tmdb.org/t/p/original${film.poster_path}`
-                        : poster
-                    }
-                  />
-                  <Card.Content>
-                    <Card.Header>{film.title}</Card.Header>
-                  </Card.Content>
-                  <Card.Content extra style={{ backgroundColor: "orangered" }}>
-                    <Link
-                      to="/details"
-                      style={{ color: "white", fontWeight: "bold" }}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "filmDetails",
-                          JSON.stringify({
-                            id: film.id,
-                            titre: film.title,
-                            dateSortie: film.release_date,
-                            description: film.overview,
-                            poster: film.poster_path,
-                            vote: film.vote_count,
-                            genre: film.genre_ids[0],
-                          })
-                        );
-                      }}
-                    >
-                      Plus de détails
-                    </Link>
-                  </Card.Content>
-                </Card>
-              </>
-            );
-          })}
-        {/* <IndicateurDeChargement /> */}
+        {films.map((film, i) => {
+          return (
+            <>
+              <Card key={i} className="film-card">
+                <Image
+                  src={
+                    film.poster_path
+                      ? `https://image.tmdb.org/t/p/original${film.poster_path}`
+                      : poster
+                  }
+                />
+                <Card.Content>
+                  <Card.Header>{film.title}</Card.Header>
+                </Card.Content>
+                <Card.Content extra className="btnDetailsContainer">
+                  <Link
+                    to="/details"
+                    className="btnDetails"
+                    onClick={() => {
+                      localStorage.setItem(
+                        "filmDetails",
+                        JSON.stringify({
+                          id: film.id,
+                          titre: film.title,
+                          dateSortie: film.release_date,
+                          description: film.overview,
+                          poster: film.poster_path,
+                          vote: film.vote_count,
+                          genre: film.genre_ids[0],
+                        })
+                      );
+                    }}
+                  >
+                    Plus de détails
+                  </Link>
+                </Card.Content>
+              </Card>
+            </>
+          );
+        })}
       </Card.Group>
     </div>
   );

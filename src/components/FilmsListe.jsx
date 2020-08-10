@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input, Button } from "semantic-ui-react";
+import { Input, Button, Icon } from "semantic-ui-react";
 import Entete from "./Entete";
 import Films from "./Films";
 import Pages from "./pages";
@@ -56,10 +56,6 @@ const FilmsListe = () => {
     rechercheFilms();
   }, []);
 
-  // const startIndex = page * TOTAL_PAR_PAGE;
-
-  // let mapage = page;
-
   const indiceDernierFilm = pageCourante * nbreFilmsParPage;
   const indicePremierFilm = indiceDernierFilm - nbreFilmsParPage;
   const filmsPageActive = films.slice(indicePremierFilm, indiceDernierFilm);
@@ -77,10 +73,13 @@ const FilmsListe = () => {
           onChange={handleChangementInput}
           id="zoneDeRecherche"
         />
-        <Button content="Rechercher" onClick={handleBtnRechercherClick} />
+        <Button onClick={handleBtnRechercherClick}>
+          <Icon name="search" />
+        </Button>
       </form>
 
-      <Button.Group style={{ marginTop: "20px" }}>
+      <Button.Group className="listebtnGenres">
+        <Button.Or text="" />
         <Button
           color="facebook"
           onClick={() => {
@@ -115,19 +114,22 @@ const FilmsListe = () => {
             setGenre("Comédie");
             selectionGenre(35);
           }}
+          className="hide"
         >
           Comédie
         </Button>
-        <Button.Or text="" />
+        <Button.Or text="" className="hide" />
         <Button
           color="facebook"
           onClick={() => {
             setGenre("Histoire");
             selectionGenre(36);
           }}
+          className="hide"
         >
           Histoire
         </Button>
+        <Button.Or text="" />
       </Button.Group>
       <Pages
         filmsParPage={nbreFilmsParPage}

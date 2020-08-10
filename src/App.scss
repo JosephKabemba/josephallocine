@@ -9,6 +9,10 @@
   background-image: url("./images/justiceleague.jpg");
   color: black;
   margin-top: 70px;
+
+  .listebtnGenres {
+    margin-top: 20px;
+  }
 }
 
 #film-container {
@@ -19,6 +23,15 @@
 
   .film-card {
     max-width: 200px;
+  }
+
+  .btnDetailsContainer {
+    background-color: orangered;
+  }
+
+  .btnDetails {
+    color: white;
+    font-weight: bold;
   }
 }
 
@@ -80,7 +93,7 @@ h1 {
 
 #zoneDeRecherche {
   width: 500px;
-  margin-right: 5% !important;
+  // margin-right: 10%;
 }
 
 .pagination {
@@ -90,7 +103,36 @@ h1 {
   align-items: center;
 }
 
+@media screen and (max-width: 768px) {
+  #film-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+
+    .film-card {
+      max-width: 250px;
+    }
+  }
+
+  #zoneDeRecherche {
+    width: 300px;
+  }
+}
+
 @media screen and (max-width: 578px) {
+  #film-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+
+    .film-card {
+      max-width: 400px;
+    }
+  }
+
   #detailFilm {
     display: flex;
     flex-direction: column;
@@ -103,7 +145,16 @@ h1 {
       content: "Année sortie: ";
     }
   }
-}
 
-@media screen and (max-width: 768px) {
+  .listebtnGenres {
+    display: block;
+    margin: 0 auto;
+    .hide {
+      display: none;
+    }
+  }
+
+  #zoneDeRecherche {
+    width: 250px;
+  }
 }
