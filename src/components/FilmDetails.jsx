@@ -30,12 +30,14 @@ const FilmDetails = () => {
           rounded
         />
         <div className="details">
-          <h2>{detail.titre}</h2>
+          <h2 className="hide">{detail.titre}</h2>
           <p>
-            <strong>{new Date(detail.dateSortie).getFullYear()}</strong>
+            <strong className="annee">
+              {new Date(detail.dateSortie).getFullYear()}
+            </strong>
           </p>
           <p>
-            <strong>{detail.genre}</strong>
+            <strong className="hide">{detail.genre}</strong>
           </p>
           <p>
             <Button
