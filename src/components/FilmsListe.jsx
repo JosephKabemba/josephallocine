@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Card, Input, Button, Image, Menu, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Entete from "./Entete";
-import IndicateurDeChargement from "./IndicateurDeChargement";
-import { trackPromise } from "react-promise-tracker";
+import Films from "./Films";
+import Pages from "./pages";
+// import IndicateurDeChargement from "./IndicateurDeChargement";
+// import { trackPromise } from "react-promise-tracker";
 import "../App.scss";
 import poster from "../images/poster.png";
 // import times from "lodash.times";
@@ -22,17 +24,15 @@ const FilmsListe = () => {
 
   const handleBtnRechercherClick = (e) => {
     e.preventDefault();
-    trackPromise(
-      axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=963b7435377e0921bfa89573f3501e4a&query=${filmRecherche}`
-        )
-        .then((res) => {
-          setFilms(res.data.results);
-          // setTotalPages(Math.ceil(res.data.length / TOTAL_PAR_PAGE));
-        })
-        .catch((err) => console.log(err))
-    );
+
+    const filmsParMotcle = async () => {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/search/movie?api_key=963b7435377e0921bfa89573f3501e4a&query=${filmRecherche}`
+      );
+      setFilms(res.data.results);
+    };
+
+    filmsParMotcle();
   };
 
   const handleChangementInput = (e) => {
@@ -40,32 +40,37 @@ const FilmsListe = () => {
   };
 
   const selectionGenre = (codegenre) => {
-    axios
-      .get(
+    const filmsParGenre = async () => {
+      const res = await axios.get(
         `https://api.themoviedb.org/3/discover/movie?api_key=963b7435377e0921bfa89573f3501e4a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=${codegenre}`
-      )
-      .then((res) => {
-        setFilms(res.data.results);
-        // setTotalPages(Math.ceil(res.data.length / TOTAL_PAR_PAGE));
-      })
-      .catch((err) => console.log(err));
+      );
+
+      setFilms(res.data.results);
+    };
+
+    filmsParGenre();
   };
 
   useEffect(() => {
-    axios
-      .get(
+    const rechercheFilms = async () => {
+      setLoading(true);
+      const res = await axios.get(
         `https://api.themoviedb.org/3/discover/movie?api_key=963b7435377e0921bfa89573f3501e4a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
-      )
-      .then((res) => {
-        setFilms(res.data.results);
-        // setTotalPages(Math.ceil(res.data.length / TOTAL_PAR_PAGE));
-      })
-      .catch((err) => console.log(err));
+      );
+      setFilms(res.data.results);
+      setLoading(false);
+    };
+
+    rechercheFilms();
   }, []);
 
   // const startIndex = page * TOTAL_PAR_PAGE;
 
   // let mapage = page;
+
+  const indiceDernierFilm = pageCourante * nbreFilmsParPage;
+  const indicePremierFilm = indiceDernierFilm - nbreFilmsParPage;
+  const filmsPageActive = films.slice(indicePremierFilm, indiceDernierFilm);
 
   return (
     <div className="App">
@@ -130,8 +135,9 @@ const FilmsListe = () => {
           Histoire
         </Button>
       </Button.Group>
-      <Card.Group id="film-container">
-        {films /*.slice(startIndex, startIndex + TOTAL_PAR_PAGE)*/
+      <Films films={films} enChargement={loading} />
+      {/* <Card.Group id="film-container">
+        {filmsPageActive
           .map((film, i) => {
             return (
               <>
@@ -172,8 +178,9 @@ const FilmsListe = () => {
               </>
             );
           })}
-        <IndicateurDeChargement />
-      </Card.Group>
+       
+      </Card.Group> */}
+      <pages filmsParPage={nbreFilmsParPage} totalFilms={films.length} />
       <div>
         {/* <Menu pagination>
           {page !== 0 && (
