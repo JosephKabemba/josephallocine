@@ -1,17 +1,11 @@
 import React from "react";
 import { Header, Segment } from "semantic-ui-react";
+import "../App.scss";
 
 const Entete = () => (
   <div className="entete">
-    <Segment
-      clearing
-      style={{
-        background: "rgba(2, 54, 75, 0.9)",
-        color: "white",
-        border: "none",
-      }}
-    >
-      <Header as="h2" floated="left" style={{ color: "white" }}>
+    <Segment clearing>
+      <Header as="h2" floated="left">
         Allocine Clone
       </Header>
     </Segment>

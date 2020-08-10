@@ -1,6 +1,10 @@
 * {
   margin: 0;
-padding: 0;
+  padding: 0;
 }
 
-
+body {
+  background-blend-mode: overlay;
+  background-color: rgba(2, 54, 75, 0.9);
+  background-image: url("./images/justiceleague.jpg");
+}
