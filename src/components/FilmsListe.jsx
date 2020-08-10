@@ -16,6 +16,9 @@ const FilmsListe = () => {
   // const [page, setPage] = useState(0);
   // const [totalPages, setTotalPages] = useState(0);
   // const TOTAL_PAR_PAGE = 4;
+  const [loading, setLoading] = useState(false);
+  const [pageCourante, modifierPageCourante] = useState(1);
+  const [nbreFilmsParPage, modifierNbreFilmsParPage] = useState(4);
 
   const handleBtnRechercherClick = (e) => {
     e.preventDefault();
