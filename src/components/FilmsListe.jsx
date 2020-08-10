@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Card, Input, Button, Image, Menu, Icon } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Input, Button } from "semantic-ui-react";
 import Entete from "./Entete";
 import Films from "./Films";
 import Pages from "./pages";
-// import IndicateurDeChargement from "./IndicateurDeChargement";
-// import { trackPromise } from "react-promise-tracker";
 import "../App.scss";
-import poster from "../images/poster.png";
-// import times from "lodash.times";
 import axios from "axios";
 
 const FilmsListe = () => {
   const [films, setFilms] = useState([]);
   const [filmRecherche, setFilmRecherche] = useState("Avengers");
   const [genre, setGenre] = useState("");
-  // const [page, setPage] = useState(0);
-  // const [totalPages, setTotalPages] = useState(0);
-  // const TOTAL_PAR_PAGE = 4;
   const [loading, setLoading] = useState(false);
   const [pageCourante, modifierPageCourante] = useState(1);
-  const [nbreFilmsParPage, modifierNbreFilmsParPage] = useState(4);
+  const [nbreFilmsParPage] = useState(4);
 
   const handleBtnRechercherClick = (e) => {
     e.preventDefault();
@@ -71,6 +63,8 @@ const FilmsListe = () => {
   const indiceDernierFilm = pageCourante * nbreFilmsParPage;
   const indicePremierFilm = indiceDernierFilm - nbreFilmsParPage;
   const filmsPageActive = films.slice(indicePremierFilm, indiceDernierFilm);
+
+  const pageSelectionnee = (numPage) => modifierPageCourante(numPage);
 
   return (
     <div className="App">
@@ -135,76 +129,14 @@ const FilmsListe = () => {
           Histoire
         </Button>
       </Button.Group>
-      <Films films={films} enChargement={loading} />
-      {/* <Card.Group id="film-container">
-        {filmsPageActive
-          .map((film, i) => {
-            return (
-              <>
-                <Card key={i} className="film-card">
-                  <Image
-                    src={
-                      film.poster_path
-                        ? `https://image.tmdb.org/t/p/original${film.poster_path}`
-                        : poster
-                    }
-                  />
-                  <Card.Content>
-                    <Card.Header>{film.title}</Card.Header>
-                  </Card.Content>
-                  <Card.Content extra style={{ backgroundColor: "orangered" }}>
-                    <Link
-                      to="/details"
-                      style={{ color: "white", fontWeight: "bold" }}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "filmDetails",
-                          JSON.stringify({
-                            id: film.id,
-                            titre: film.title,
-                            dateSortie: film.release_date,
-                            description: film.overview,
-                            poster: film.poster_path,
-                            vote: film.vote_count,
-                            genre: film.genre_ids[0],
-                          })
-                        );
-                      }}
-                    >
-                      Plus de détails
-                    </Link>
-                  </Card.Content>
-                </Card>
-              </>
-            );
-          })}
-       
-      </Card.Group> */}
-      <pages filmsParPage={nbreFilmsParPage} totalFilms={films.length} />
-      <div>
-        {/* <Menu pagination>
-          {page !== 0 && (
-            <Menu.Item as="a" icon onClick={() => setPage(--mapage)}>
-              <Icon name="left chevron" />
-            </Menu.Item>
-          )}
-          {times(totalPages, (n) => (
-            <Menu.Item
-              as="a"
-              key={n}
-              active={n === page}
-              onClick={() => setPage(n)}
-            >
-              {n + 1}
-            </Menu.Item>
-          ))}
-          {page !== totalPages - 1 && (
-            <Menu.Item as="a" icon onClick={() => setPage(++mapage)}>
-              <Icon name="right chevron" />
-            </Menu.Item>
-          )}
-        </Menu> */}
-      </div>
+      <Films films={filmsPageActive} enChargement={loading} />
+
+      <Pages
+        filmsParPage={nbreFilmsParPage}
+        totalFilms={films.length}
+        allerVersPage={pageSelectionnee}
+      />
+      <div></div>
     </div>
   );
 };
