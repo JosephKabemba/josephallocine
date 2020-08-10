@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Input, Button, Icon } from "semantic-ui-react";
+import { cleApi } from "./config.js";
 import Entete from "./Entete";
 import Films from "./Films";
 import Pages from "./pages";
@@ -19,7 +20,7 @@ const FilmsListe = () => {
 
     const filmsParMotcle = async () => {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=963b7435377e0921bfa89573f3501e4a&query=${filmRecherche}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${cleApi}&query=${filmRecherche}`
       );
       setFilms(res.data.results);
     };
@@ -34,7 +35,7 @@ const FilmsListe = () => {
   const selectionGenre = (codegenre) => {
     const filmsParGenre = async () => {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=963b7435377e0921bfa89573f3501e4a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=${codegenre}`
+        `https://api.themoviedb.org/3/discover/movie?api_key=${cleApi}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=${codegenre}`
       );
 
       setFilms(res.data.results);
@@ -47,9 +48,10 @@ const FilmsListe = () => {
     const rechercheFilms = async () => {
       setLoading(true);
       const res = await axios.get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=963b7435377e0921bfa89573f3501e4a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+        `https://api.themoviedb.org/3/discover/movie?api_key=${cleApi}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
       );
       setFilms(res.data.results);
+      console.log(cleApi);
       setLoading(false);
     };
 
