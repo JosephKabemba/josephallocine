@@ -129,13 +129,13 @@ const FilmsListe = () => {
           Histoire
         </Button>
       </Button.Group>
-      <Films films={filmsPageActive} enChargement={loading} />
-
       <Pages
         filmsParPage={nbreFilmsParPage}
         totalFilms={films.length}
         allerVersPage={pageSelectionnee}
       />
+      <Films films={filmsPageActive} enChargement={loading} />
+
       <div></div>
     </div>
   );

@@ -1,21 +1,19 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import "../App.scss";
 
 const Pages = ({ filmsParPage, totalFilms, allerVersPage }) => {
   const nbrePages = [];
 
-  for (let i = 1; i <= Math.ceil(totalFilms / filmsParPage); ++i) {
+  for (let i = 1; i <= Math.ceil(totalFilms / filmsParPage); i++) {
     nbrePages.push(i);
   }
   return (
-    <nav>
+    <nav className="pagination">
       <Button.Group>
         {nbrePages.map((nombre) => (
-          <Button key={nombre}>
-            <Link onClick={() => allerVersPage(nombre)} to="#!">
-              {nombre}
-            </Link>
+          <Button key={nombre} onClick={() => allerVersPage(nombre)}>
+            {nombre}
           </Button>
         ))}
       </Button.Group>
