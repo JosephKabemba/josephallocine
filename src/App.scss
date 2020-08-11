@@ -39,9 +39,10 @@ h1 {
   color: white;
 }
 
-#detailFilm {
+#detail-container {
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -49,8 +50,13 @@ h1 {
   background-color: rgba(2, 54, 75, 0.9);
   color: white;
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
+
+  #autre-details {
+    display: flex;
+    background-color: rgba(2, 54, 75, 0.6);
+    padding: 2% 5%;
+    border-radius: 2%;
+  }
 
   #poster {
     max-height: 400px;
@@ -93,7 +99,6 @@ h1 {
 
 #zoneDeRecherche {
   width: 500px;
-  // margin-right: 10%;
 }
 
 .pagination {
@@ -133,7 +138,7 @@ h1 {
     }
   }
 
-  #detailFilm {
+  #autre-details {
     display: flex;
     flex-direction: column;
 

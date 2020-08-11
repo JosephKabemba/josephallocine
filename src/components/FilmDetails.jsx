@@ -10,7 +10,7 @@ const FilmDetails = () => {
   return (
     <>
       <div
-        id="detailFilm"
+        id="detail-container"
         style={{
           backgroundImage: `url("${
             detail.poster
@@ -19,46 +19,48 @@ const FilmDetails = () => {
           }")`,
         }}
       >
-        <Image
-          src={
-            detail.poster
-              ? `https://image.tmdb.org/t/p/original${detail.poster}`
-              : poster
-          }
-          size="medium"
-          id="poster"
-          rounded
-        />
-        <div className="details">
-          <h2 className="hide">{detail.titre}</h2>
-          <p>
-            <strong className="annee">
-              {new Date(detail.dateSortie).getFullYear()}
-            </strong>
-          </p>
-          <p>
-            <strong className="hide">{detail.genre}</strong>
-          </p>
-          <p>
-            <Button
-              color="red"
-              icon="heart"
-              label={{
-                basic: true,
-                color: "red",
-                pointing: "left",
-                content: `${detail.vote}`,
-              }}
-            />
-          </p>
-          <p>{detail.description}</p>
-          <p>
-            <Link to="/">
-              <Button id="btnRetour" color="rgba(2, 54, 75, 0.9)">
-                Retour
-              </Button>
-            </Link>
-          </p>
+        <div id="autre-details">
+          <Image
+            src={
+              detail.poster
+                ? `https://image.tmdb.org/t/p/original${detail.poster}`
+                : poster
+            }
+            size="medium"
+            id="poster"
+            rounded
+          />
+          <div className="details">
+            <h2 className="hide">{detail.titre}</h2>
+            <p>
+              <strong className="annee">
+                {new Date(detail.dateSortie).getFullYear()}
+              </strong>
+            </p>
+            <p>
+              <strong className="hide">{detail.genre}</strong>
+            </p>
+            <p>
+              <Button
+                color="red"
+                icon="heart"
+                label={{
+                  basic: true,
+                  color: "red",
+                  pointing: "left",
+                  content: `${detail.vote}`,
+                }}
+              />
+            </p>
+            <p>{detail.description}</p>
+            <p>
+              <Link to="/">
+                <Button id="btnRetour" color="rgba(2, 54, 75, 0.9)">
+                  Retour
+                </Button>
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </>
