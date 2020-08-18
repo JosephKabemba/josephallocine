@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Image } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import poster from "../images/poster.png";
 import "../App.scss";
 
@@ -55,7 +55,11 @@ const FilmDetails = () => {
             <p>{detail.description}</p>
             <p>
               <Link to="/">
-                <Button id="btnRetour" color="rgba(2, 54, 75, 0.9)">
+                <Button
+                  id="btnRetour"
+                  color="rgba(2, 54, 75, 0.9)"
+                  
+                >
                   Retour
                 </Button>
               </Link>
@@ -67,4 +71,4 @@ const FilmDetails = () => {
   );
 };
 
-export default FilmDetails;
+export default withRouter(FilmDetails);

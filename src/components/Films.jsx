@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 import poster from "../images/poster.png";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
@@ -24,11 +24,9 @@ const Films = ({ films, enChargement }) => {
                       ? `https://image.tmdb.org/t/p/original${film.poster_path}`
                       : poster
                   }
+                  className="image"
                 />
-                <Card.Content>
-                  <Card.Header>{film.title}</Card.Header>
-                </Card.Content>
-                <Card.Content extra className="btnDetailsContainer">
+                <Card.Content className="milieu">
                   <Link
                     to="/details"
                     className="btnDetails"
@@ -47,7 +45,12 @@ const Films = ({ films, enChargement }) => {
                       );
                     }}
                   >
-                    Plus de détails
+                    <Button
+                      content="Détails"
+                      className="text"
+                      color="instagram"
+                      // style={{ width: "100px" }}
+                    />
                   </Link>
                 </Card.Content>
               </Card>

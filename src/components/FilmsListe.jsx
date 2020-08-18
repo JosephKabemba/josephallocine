@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Input, Button, Icon } from "semantic-ui-react";
 import { cleApi } from "./config.js";
 import Entete from "./Entete";
+import PiedDePage from "./PiedDePage";
 import Films from "./Films";
 import Pages from "./pages";
 import "../App.scss";
@@ -13,7 +14,7 @@ const FilmsListe = () => {
   const [genre, setGenre] = useState("");
   const [loading, setLoading] = useState(false);
   const [pageCourante, modifierPageCourante] = useState(1);
-  const [nbreFilmsParPage] = useState(4);
+  const [nbreFilmsParPage] = useState(12);
 
   const handleBtnRechercherClick = (e) => {
     e.preventDefault();
@@ -48,7 +49,7 @@ const FilmsListe = () => {
     const rechercheFilms = async () => {
       setLoading(true);
       const res = await axios.get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${cleApi}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+        `https://api.themoviedb.org/3/discover/movie?api_key=${cleApi}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageCourante}`
       );
       setFilms(res.data.results);
       console.log(cleApi);
@@ -56,7 +57,7 @@ const FilmsListe = () => {
     };
 
     rechercheFilms();
-  }, []);
+  }, [pageCourante]);
 
   const indiceDernierFilm = pageCourante * nbreFilmsParPage;
   const indicePremierFilm = indiceDernierFilm - nbreFilmsParPage;
@@ -133,14 +134,14 @@ const FilmsListe = () => {
         </Button>
         <Button.Or text="" />
       </Button.Group>
+
+      <Films films={filmsPageActive} enChargement={loading} /><PiedDePage/>
       <Pages
         filmsParPage={nbreFilmsParPage}
         totalFilms={films.length}
         allerVersPage={pageSelectionnee}
       />
-      <Films films={filmsPageActive} enChargement={loading} />
-
-      <div></div>
+      
     </div>
   );
 };
